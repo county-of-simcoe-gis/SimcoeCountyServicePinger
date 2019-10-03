@@ -1,0 +1,149 @@
+{
+  "email": {
+    "smtp": "smtprelay.county.simcoe.on.ca",
+    "fromAddress": "sim-gis@simcoe.ca",
+    "toAddresses": ["alain.proulx@simcoe.ca", "jeremy.ellis@simcoe.ca"]
+  },
+  "search": {
+    "urlSearch": "https://opengis.simcoe.ca/api/async/search/?q=1110%20Highway%2026&type=All&muni=undefined&limit=10",
+    "urlSearchMinSpeedMs": 300,
+    "urlLocation": "https://opengis.simcoe.ca/api/searchById/MTExMCBIaWdod2F5IDI2fEFkZHJlc3N8U3ByaW5nd2F0ZXI=",
+    "urlLocationMinSpeedMs": 300,
+    "enabled": true
+  },
+  "wfs": [
+    {
+      "name": "Forest Tract Polygons - Theme",
+      "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:Forest Tract Polygons Theme&outputFormat=application/json",
+      "minRecords": 1000,
+      "fields": ["_tractName", "_url"],
+      "enabled": true
+    },
+    {
+      "name": "Forest Tract Points - Theme",
+      "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:Forest Tract Points Theme&outputFormat=application/json",
+      "minRecords": 100,
+      "fields": ["_tractName", "_url"],
+      "enabled": true
+    },
+    {
+      "name": "Conservation Area Points Theme",
+      "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:Conservation Area Polygons Theme&outputFormat=application/json",
+      "minRecords": 10,
+      "fields": ["Name"],
+      "enabled": true
+    },
+    {
+      "name": "NVCA Conservation Area Point Theme",
+      "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:NVCA Conservation Area Point Theme&outputFormat=application/json",
+      "minRecords": 10,
+      "fields": ["Name"],
+      "enabled": true
+    },
+    {
+      "name": "Lake Simcoe Conservation Areas Theme",
+      "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:LSRCA Conservation Points Theme&outputFormat=application/json",
+      "minRecords": 10,
+      "fields": ["Name"],
+      "enabled": true
+    },
+    {
+      "name": "Provincial Parks Theme",
+      "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:Provincial Park Points Theme&outputFormat=application/json",
+      "minRecords": 5,
+      "fields": ["_parkname"],
+      "enabled": true
+    },
+    {
+      "name": "Municipal Parks Theme",
+      "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:Municipal Park Points Theme&outputFormat=application/json",
+      "minRecords": 500,
+      "fields": ["_parkname"],
+      "enabled": true
+    },
+    {
+      "name": "Solid Waste Collection Days - Theme",
+      "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:Solid%20Waste%20Collection%20Days&outputFormat=application/json",
+      "minRecords": 10,
+      "fields": ["collectionday"],
+      "enabled": true
+    },
+    {
+      "name": "Public Landfills - Theme",
+      "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:Public%20Landfills%20Theme&outputFormat=application/json&sortBy=Name",
+      "minRecords": 6,
+      "fields": ["Name"],
+      "enabled": true
+    },
+    {
+      "name": "Bag Tag Locations - Theme",
+      "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:Bag%20Tag%20Locations%20Theme&outputFormat=application/json&sortBy=Name",
+      "minRecords": 100,
+      "fields": ["Name"],
+      "enabled": true
+    },
+    {
+      "name": "Local Real Estate - Residential Theme",
+      "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:Local Real Estate - Residential&outputFormat=application/json",
+      "minRecords": 10,
+      "fields": ["mlsno"],
+      "enabled": true
+    },
+    {
+      "name": "Local Real Estate - Commercial Theme",
+      "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:Local Real Estate - Commercial&outputFormat=application/json",
+      "minRecords": 10,
+      "fields": ["mlsno"],
+      "enabled": true
+    },
+    {
+      "name": "Local Real Estate - Farm Theme",
+      "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:Local Real Estate - Farm&outputFormat=application/json",
+      "minRecords": 10,
+      "fields": ["mlsno"],
+      "enabled": true
+    },
+    {
+      "name": "Local Real Estate - Vacant Land Theme",
+      "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:Local Real Estate - Vacant Land&outputFormat=application/json",
+      "minRecords": 10,
+      "fields": ["mlsno"],
+      "enabled": true
+    },
+    {
+      "name": "Local Real Estate - All Theme",
+      "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:Local Real Estate - All&outputFormat=application/json",
+      "minRecords": 10,
+      "fields": ["mlsno"],
+      "enabled": true
+    },
+    {
+      "name": "Road Construction - Bridges Theme",
+      "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:Road Construction - Bridges&outputFormat=application/json",
+      "minRecords": 1,
+      "fields": ["Name"],
+      "enabled": true
+    },
+    {
+      "name": "Road Construction - Roads Theme",
+      "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:Road Construction - Roads&outputFormat=application/json",
+      "minRecords": 1,
+      "fields": ["Road_Name"],
+      "enabled": true
+    },
+    {
+      "name": "Child_Care_Facilities Theme",
+      "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:Child_Care_Facilities&outputFormat=application/json",
+      "minRecords": 150,
+      "fields": ["Name"],
+      "enabled": true
+    },
+    {
+      "name": "Assessment Parcels",
+      "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:Assessment%20Parcel&outputFormat=application/json",
+      "minRecords": 200000,
+      "fields": ["arn"],
+      "enabled": true
+    }
+  ]
+}
