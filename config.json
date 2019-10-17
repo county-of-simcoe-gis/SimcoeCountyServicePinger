@@ -4,6 +4,13 @@
     "fromAddress": "sim-gis@simcoe.ca",
     "toAddresses": ["alain.proulx@simcoe.ca", "jeremy.ellis@simcoe.ca"]
   },
+  "timeouts": [
+    {
+      "name": "Layer Groups Api TOC",
+      "url": "https://opengis.simcoe.ca/geoserverRestApi/getLayerGroup/All%20Layers",
+      "timeoutMs": 1000
+    }
+  ],
   "search": {
     "urlSearch": "https://opengis.simcoe.ca/api/async/search/?q=1110%20Highway%2026&type=All&muni=undefined&limit=10",
     "urlSearchMinSpeedMs": 300,
@@ -15,7 +22,7 @@
     {
       "name": "Forest Tract Polygons - Theme",
       "url": "https://opengis.simcoe.ca/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=simcoe:Forest Tract Polygons Theme&outputFormat=application/json",
-      "minRecords": 1000,
+      "minRecords": 100,
       "fields": ["_tractName", "_url"],
       "enabled": true
     },

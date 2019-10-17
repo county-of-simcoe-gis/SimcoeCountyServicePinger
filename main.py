@@ -10,9 +10,11 @@ from email.mime.text import MIMEText
 with open('config.json') as config_file:
     config = json.load(config_file)
 
+errorString = ''
 emailOptions = config['email']
 wfsList = config['wfs']
 search = config['search']
+timeouts = config['timeouts']
 
 # EMAIL FUNCTION
 
@@ -30,8 +32,23 @@ def sendEmail(subject, body):
     server.quit()
 
 
+# CHECK TIMEOUTS
+for item in timeouts:
+    name = item['name']
+    url = item['url']
+    timeoutMs = item['timeoutMs']
+
+    # JSON REQUEST
+    try:
+        r = requests.get(url=url, timeout=timeoutMs)
+        data = r.json()
+    except:
+        print(name + " URL is broken.")
+        errorString += "Broken URL - " + name + "<br/>" + url + "<br/><br/>"
+        continue
+
+
 # CHECK ALL OF THE WFS URLS
-errorString = ''
 for wfs in wfsList:
     name = wfs['name']
     url = wfs['url']
