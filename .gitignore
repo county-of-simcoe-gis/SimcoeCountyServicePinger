@@ -1,1 +1,4 @@
 sc_copyToServer.bat
+database.ini
+__pycache__
+.vscode

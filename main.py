@@ -1,3 +1,4 @@
+import postgres
 import sys
 import json
 import requests
@@ -32,6 +33,59 @@ def sendEmail(subject, body):
     server.quit()
 
 
+# SEARCH TABLE
+connTabular = postgres.getConn('tabular')
+rows = postgres.query(connTabular, "SELECT wfs_url, id, type, type_id, field_name, field_name_alias, muni_field_name, roll_number_field, run_schedule, priority, last_run, last_run_minutes FROM public.tbl_search_layers where run_schedule = 'ALWAYS' order by type;")
+for row in rows:
+    wfsUrl = row['wfs_url'] + "&count=1"
+    typeId = row['type_id']
+    nameField = row['field_name']
+    muniField = row['muni_field_name']
+    aliasField = row['field_name_alias']
+    print(typeId)
+
+    # JSON REQUEST
+    try:
+        r = requests.get(url=wfsUrl)
+        data = r.json()
+
+        # GET FEATURES
+        features = data['features']
+
+        # CHECK FIELD NAMES
+        if len(features) > 0:
+            feature = features[0]
+            props = feature['properties']
+
+            # CHECK NAME FIELD
+            try:
+                val = props[nameField]
+            except:
+                print(typeId + " has invalid search name field.")
+                errorString += typeId + " search name field not found.<br/>"
+            
+            # CHECK MUNI FIELD
+            if (muniField != None):
+                try:
+                    val = props[muniField]
+                except:
+                    print(typeId + " has invalid search muni field.")
+                    errorString += typeId + " muni name field not found.<br/>"
+
+            # CHECK ALIAS FIELD
+            if (aliasField != None):
+                try:
+                    val = props[aliasField]
+                except:
+                    print(typeId + " has invalid search alias field.")
+                    errorString += typeId + " alias name field not found.<br/>"
+                        
+    except:
+        print(typeId + " URL is broken.")
+        errorString += "Search table Broken URL - " + typeId + "<br/>" + wfsUrl + "<br/><br/>"
+        continue
+    
+    
 # CHECK TIMEOUTS
 for item in timeouts:
     name = item['name']
@@ -40,8 +94,22 @@ for item in timeouts:
 
     # JSON REQUEST
     try:
+        startTime = datetime.now()
         r = requests.get(url=url, timeout=timeoutMs)
-        data = r.json()
+
+        # 404 NOT FOUND
+        if r.status_code == 404:
+            print(name + " URL is broken.")
+            errorString += "Broken URL - " + name + "<br/>" + url + "<br/><br/>"
+            continue
+
+        endTime = datetime.now()
+        ms = (endTime - startTime).total_seconds() * 1000
+        print("timeout (ms): " + str(ms))
+        if ms > timeoutMs:
+            errorString += "URL is slow: " + url + "<br/>Expected ms: " + \
+                str(timeoutMs) + "<br/>Actual ms: " + str(ms) + "<br/><br/>"
+
     except:
         print(name + " URL is broken.")
         errorString += "Broken URL - " + name + "<br/>" + url + "<br/><br/>"
@@ -80,15 +148,16 @@ for wfs in wfsList:
             str(numFeatures) + "<br/><br/>"
 
     # CHECK FIELD NAMES
-    feature = features[0]
-    for fieldName in fields:
-        props = feature['properties']
-        try:
-            val = props[fieldName]
-        except:
-            print(name + " is missing fields.")
-            errorString += name + " is missing fields.<br/>" + \
-                url + "<br/>Field Not Found: " + fieldName + "<br/><br/>"
+    if len(features) > 0:
+        feature = features[0]
+        for fieldName in fields:
+            props = feature['properties']
+            try:
+                val = props[fieldName]
+            except:
+                print(name + " is missing fields.")
+                errorString += name + " is missing fields.<br/>" + \
+                    url + "<br/>Field Not Found: " + fieldName + "<br/><br/>"
 
 # CHECK SEARCH
 minMs = search['urlSearchMinSpeedMs']
