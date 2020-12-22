@@ -2,7 +2,7 @@
   "email": {
     "smtp": "smtprelay.county.simcoe.on.ca",
     "fromAddress": "sim-gis@simcoe.ca",
-    "toAddresses": ["alain.proulx@simcoe.ca"]
+    "toAddresses": ["alain.proulx@simcoe.ca", "treed@simcoe.ca"]
   },
   "timeouts": [
     {
